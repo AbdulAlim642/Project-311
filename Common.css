@@ -1,0 +1,71 @@
+ * {
+     font-family: "Poppins", sans-serif;
+ }
+
+ .h-font {
+     font-family: 'Cursive', cursive;
+ }
+
+ .custom-file-input::before {
+     content: "Choose file";
+     display: inline-block;
+     background: #f8f9fa;
+     border: 1px solid #ced4da;
+     padding: 5px 10px;
+     cursor: pointer;
+     border-radius: 4px;
+ }
+
+ .custom-file-input {
+     position: relative;
+     overflow: hidden;
+ }
+
+ .custom-file-input input[type="file"] {
+     position: absolute;
+     left: 0;
+     top: 0;
+     opacity: 0;
+     cursor: pointer;
+ }
+  .custom-bg {
+      background-color: #18b3bb;
+  }
+
+  .custom-bg:hover {
+      background-color: #1887bb;
+  }
+/* customers review section*/
+  .testimonial-container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+  }
+
+  .testimonial-item {
+      text-align: center;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .testimonial-item img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-top: 10px;
+  }
+
+  .testimonial-item h3 {
+      margin-top: 15px;
+      font-weight: bold;
+  }
+
+  .swiper-container {
+      padding: 40px 0;
+  }
+
+  .swiper-pagination-bullet {
+      background-color: #007bff;
+  }
