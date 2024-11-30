@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dream Place Hotel-About</title>
-    <?php require('Include/links.php'); ?>
+    <?php require_once('Include/links.php'); ?>
 
 
 </head>
 
 <body class="bg-light">
-    <?php require('Include/Header.php'); ?>
+    <?php require_once('Include/Header.php'); ?>
    <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">About Us</h2>
     <div class="h-line bg-dark" style="width: 100px; height: 2px; margin: 0 auto;"></div>
@@ -39,7 +39,6 @@
             <p>Welcome to Dream Place Hotel ,I am the Ownwer of this hotel.Any kind of issue please inform me as soon as possible.Here my email:ownerofdreamplacehotel@gmail.com</p>
         </div>
     </div>
-
     <!-- Statistics Section -->
     <div class="stats-section">
         <div class="card">
@@ -60,7 +59,46 @@
         </div>
     </div>
 </div>
-<
+<div class="bg-light">
+   <!-- <img style = "float:right;" src = "images/about.jpg" width = "250px" height = "250px" />-->
+				<br style = "clear:both;" />
+				<hr style = "border:1px dotted #000;" />
+				<br />
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/1.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Standard</h4></center>
+					<center><label>Small Size Bed</label> <label style = "color:red;">USD 2,000.00</label></center>
+				</div>
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/2.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Extra Bed</h4></center>
+					<center><label style = "color:red;">USD 800.00</label></center>
+				</div>
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/3.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Superior</h4></center>
+					<center><label>1 Medium Size Bed</label> <label style = "color:red;">USD 2,400.00 </label></center>
+				</div>
+				<br style = "clear:both;"/>
+				<br />
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/4.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Super Deluxe</h4></center>
+					<center><label>2 Medium Size Bed</label> <label style = "color:red;">USD 2,800.00 </label></center>
+				</div>
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/5.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Jr. Suite</h4></center>
+					<center><label>Matrimonial</label> <label style = "color:red;">USD 3,800.00 </label></center>
+				</div>
+				<div style = "float:left; margin-left:40px; width:300px; height:300px; ">
+					<center><img src = "images/6.jpg" width = "250px" height = "250px"  style = "margin-top:5px;"/></center>
+					<center><h4 style = "color:rgba(0, 255, 0, 1);">Executive Suite</h4></center>
+					<center><label>Matrimonial</label> <label style = "color:red;">USD 4,000.00 </label></center>
+				</div>
+				<br style = "clear:both;"/>
+</div>
+
 <div class="container mt-5">
 h2 class="fw-bold h-font text-center">Our family Helping Team</h2>
 <div class="container px-4">
@@ -145,6 +183,8 @@ h2 class="fw-bold h-font text-center">Our family Helping Team</h2>
             font-weight: bold;
         }
     </style>
+    <script src = "js/jquery.js"></script>
+<script src = "js/bootstrap.js"></script>
 
 
 </body>
