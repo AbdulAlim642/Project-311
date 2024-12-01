@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="#">Dream Place Hotel</a>
+        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Dream Place Hotel</a>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -9,11 +9,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="Room.php">Rooms</a></li>
-                <li class="nav-item"><a class="nav-link" href="Facilities.php">Facilities</a></li>
-                <li class="nav-item"><a class="nav-link" href="ContactUs.php">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="About.php">About</a></li>
+                <li class="nav-item"><a class="nav-link active fs-5" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="Room.php">Rooms</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="reservation.php">Make a reservation</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="dineandlounge.php">Dine and Lounge</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="gallery.php">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="Facilities.php">Facilities</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        More detais...
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="ContactUs.php">Contact Us</a></li>
+                        <li><a class="dropdown-item" href="About.php">About us</a></li>
+                        <li><a class="dropdown-item" href="rulesandregulation.php">Rules and Regulation</a></li>
+                    </ul>
+                </li>
             </ul>
             <!--login and sing up bottom div-->
             <div class="d-flex">
