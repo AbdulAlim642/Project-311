@@ -19,10 +19,12 @@ require 'name.php';
 			<div class="navbar-header">
 				<a class="navbar-brand">Dream Place Hotel</a>
 			</div>
-			<ul class="nav navbar-nav pull-right ">
+			<ul class="nav navbar-nav pull-right">
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <?php echo $name; ?></a>
+						aria-expanded="false">
+						<i class="glyphicon glyphicon-user"></i> <?php echo $name; ?>
+					</a>
 					<ul class="dropdown-menu">
 						<li><a href="logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
 					</ul>
@@ -32,11 +34,16 @@ require 'name.php';
 	</nav>
 	<div class="container-fluid">
 		<ul class="nav nav-pills">
-			<li><a href="home.php">Home</a></li>
+		<li ><a href="home.php">Home</a></li>
 			<li><a href="account.php">Accounts</a></li>
-			<li><a href="Room_book.php">Room-Book</a></li>
-			<li><a href="room.php">Room</a></li>
+			<li><a href="booking.php">Booking</a></li>
+			<li class="active"><a href="room.php">Room</a></li>
 			<li><a href="Users.php">Users</a></li>
+			<li><a href="dine.php">Dine and Lounge</a></li>
+			<li><a href="gallery.php">Gallery</a></li>
+			<li><a href="contact.php">Contact us</a></li>
+			<li><a href="about.php">About us</a></li>
+			
 		</ul>
 	</div>
 	<br />
@@ -44,12 +51,13 @@ require 'name.php';
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="alert alert-info">Transaction / Room</div>
-				<a class="btn btn-success" href="add_room.php"><i class="glyphicon glyphicon-plus"></i> Add Room</a>
+				<a class="btn btn-success" href="room_add.php"><i class="glyphicon glyphicon-plus"></i> Add Room</a>
 				<br />
 				<br />
 				<table id="table" class="table table-bordered">
 					<thead>
 						<tr>
+							<th>Room ID</th> <!-- Added Room ID column -->
 							<th>Room Type</th>
 							<th>Price</th>
 							<th>Photo</th>
@@ -62,6 +70,7 @@ require 'name.php';
 						while ($fetch = $query->fetch_array()) {
 							?>
 							<tr>
+								<td><?php echo $fetch['room_id']; ?></td> <!-- Display Room ID -->
 								<td><?php echo $fetch['room_type'] ?></td>
 								<td><?php echo $fetch['price'] ?></td>
 								<td>
@@ -69,12 +78,16 @@ require 'name.php';
 									</center>
 								</td>
 								<td>
-									<center><a class="btn btn-warning"
-											href="edit_room.php?room_id=<?php echo $fetch['room_id'] ?>"><i
-												class="glyphicon glyphicon-edit"></i> Edit</a> <a class="btn btn-danger"
-											onclick="confirmationDelete(this); return false;"
-											href="delete_room.php?room_id=<?php echo $fetch['room_id'] ?>"><i
-												class="glyphicon glyphicon-remove"></i> Delete</a></center>
+									<center>
+										<a class="btn btn-warning"
+											href="admin/room_edit.php?room_id=<?php echo $fetch['room_id'] ?>">
+											<i class="glyphicon glyphicon-edit"></i> Edit
+										</a>
+										<a class="btn btn-danger" onclick="confirmationDelete(this); return false;"
+											href="room_delete.php?room_id=<?php echo $fetch['room_id'] ?>">
+											<i class="glyphicon glyphicon-remove"></i> Delete
+										</a>
+									</center>
 								</td>
 							</tr>
 							<?php
@@ -89,6 +102,7 @@ require 'name.php';
 	<br />
 	<!--footer-->
 </body>
+
 <script src="../js/jquery.js"></script>
 <script src="../js/bootstrap.js"></script>
 <script src="../js/jquery.dataTables.js"></script>
@@ -99,7 +113,7 @@ require 'name.php';
 		if (conf) {
 			window.location = anchor.attr("href");
 		}
-	} 
+	}
 </script>
 
 <script type="text/javascript">

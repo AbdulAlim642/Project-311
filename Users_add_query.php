@@ -1,53 +1,49 @@
 <?php
+// Database connection
+$host = 'localhost'; // Database host
+$username = 'root'; // Database username
+$password = ''; // Database password
+$database = 'hotel_db'; // Database name
 
-// Check if the form has been submitted
-if (isset($_POST['add_account'])) {
-    // Fetch form data
+// Connect to MySQL
+$conn = mysqli_connect($host, $username, $password, $database);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if form is submitted
+if (isset($_POST['user_registration'])) {
+    // Get form data
+    $id = $_POST['id'];
     $name = $_POST['name'];
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $dob = $_POST['dob'];
-    $created_at = $_POST['created_at'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $picture = $_POST['picture'];
 
-    // Handle file upload for profile picture
-    $profile_pic = '';
-    if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0) {
-        // Define the target directory and file path
-        $target_dir = "uploads/";
-        $profile_pic = $target_dir . basename($_FILES['profile_pic']['name']);
-        // Move uploaded file to the target directory
-        if (!move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profile_pic)) {
-            echo "<center><label style='color:red;'>Failed to upload profile picture</label></center>";
-            exit();
-        }
-    }
+    // SQL query to insert data
+    $sql = "INSERT INTO users (id, name, email, phone, password, dob, address, picture, created_date) 
+            VALUES ('$id', '$name', '$email', '$phone', '$password', '$dob', '$address', '$picture', NOW())";
 
-    // Check for duplicate username using a prepared statement
-    $stmt = $conn->prepare("SELECT * FROM `Users` WHERE `username` = ?");
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "<center><label style='color:red;'>Username already taken</label></center>";
+    // Execute the query
+    if (mysqli_query($conn, $sql)) {
+        // JavaScript alert for successful registration and redirect
+        echo "<script>
+            alert('Registration successful!');
+            setTimeout(function() {
+                window.location.href = 'Users_add.php';
+            }, 2000); // 2-second delay before redirecting to login
+        </script>";
     } else {
-        // Hash the password before inserting it into the database
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Insert new account into the admin table
-        $stmt = $conn->prepare("INSERT INTO `Users` (name, username, password, dob, profile_pic, created_at) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssssss', $name, $username, $hashed_password, $dob, $profile_pic, $created_at);
-
-        if ($stmt->execute()) {
-            // Redirect to account page after successful insertion
-            header("location: account.php");
-            exit();
-        } else {
-            echo "<center><label style='color:red;'>Error occurred while creating the account</label></center>";
-        }
+        // Display error message
+        echo "Error: " . mysqli_error($conn);
     }
 
-    // Close statement and connection
-    $stmt->close();
+    // Close the connection
+    mysqli_close($conn);
 }
 ?>

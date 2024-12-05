@@ -29,11 +29,16 @@
 	</nav>
 	<div class = "container-fluid">	
 		<ul class = "nav nav-pills">
-			<li><a href = "home.php">Home</a></li>
-			<li class = "active"><a href = "account.php">Accounts</a></li>
-			<li><a href = "Room_book.php">Room_Book</a></li>
-			<li><a href = "room.php">Room</a></li>
-			<li><a href="Users.php">Users</a></li>			
+			<li><a href="home.php">Home</a></li>
+			<li class="active"><a href="account.php">Accounts</a></li>
+			<li><a href="booking.php">Booking</a></li>
+			<li><a href="room.php">Room</a></li>
+			<li><a href="Users.php">Users</a></li>
+			<li><a href="dine.php">Dine and Lounge</a></li>
+			<li><a href="gallery.php">Gallery</a></li>
+			<li><a href="contact.php">Contact us</a></li>
+			<li><a href="about.php">About us</a></li>
+					
 		</ul>	
 	</div>
 	<br />

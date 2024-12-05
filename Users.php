@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <?php
-require_once 'validate.php';
-require 'name.php';
 require_once 'connect.php';
 ?>
 <html lang="en">
@@ -10,8 +8,8 @@ require_once 'connect.php';
     <title>Dream Place Hotel</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css " />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css " />
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 
 <body>
@@ -32,16 +30,19 @@ require_once 'connect.php';
         </div>
     </nav>
     <div class="container-fluid">
-        <ul class="nav nav-pills">
-            <li><a href="home.php">Home</a></li>
-            <li><a href="account.php">Accounts</a></li>
-            <li><a href="Room_book.php">Room-Book</a></li>
-            <li><a href="room.php">Room</a></li>
-            <li><a class="active" href="Users.php">Users</a></li>
-            
-        </ul>
+        <li ><a href="home.php">Home</a></li>
+			<li><a href="account.php">Accounts</a></li>
+			<li><a href="booking.php">Booking</a></li>
+			<li><a href="room.php">Room</a></li>
+			<li class="active"><a href="Users.php">Users</a></li>
+			<li><a href="dine.php">Dine and Lounge</a></li>
+			<li><a href="gallery.php">Gallery</a></li>
+			<li><a href="contact.php">Contact us</a></li>
+			<li><a href="about.php">About us</a></li>
+			
     </div>
     <br />
+
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -53,9 +54,11 @@ require_once 'connect.php';
                 <table id="table" class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
-                            <th>Username</th>
+                            <th>Email</th>
                             <th>Password</th>
+                            <th>Phone</th>
                             <th>Date of Birth</th>
                             <th>Profile Picture</th>
                             <th>Created Date</th>
@@ -64,24 +67,29 @@ require_once 'connect.php';
                     </thead>
                     <tbody>
                         <?php
-                        $query = $conn->query("SELECT * FROM `Users`") or die(mysqli_error());
+                        // Query to fetch all users
+                        $query = $conn->query("SELECT * FROM `Users`") or die(mysqli_error($conn));
                         while ($fetch = $query->fetch_array()) {
                             ?>
                             <tr>
-                                <td><?php echo $fetch['name'] ?></td>
-                                <td><?php echo $fetch['username'] ?></td>
-                                <td><?php echo md5($fetch['password']) ?></td>
-                                <td><?php echo $fetch['dob'] ?></td>
-                                <td><img src="<?php echo $fetch['profile_pic'] ?>" width="50" height="50" /></td>
-                                <td><?php echo $fetch['created_at'] ?></td>
+                                <td><?php echo $fetch['id']; ?></td>
+                                <td><?php echo $fetch['name']; ?></td>
+                                <td><?php echo $fetch['email']; ?></td>
+                                <td>******</td> <!-- Password hidden for security reasons -->
+                                <td><?php echo $fetch['phone']; ?></td>
+                                <td><?php echo $fetch['dob']; ?></td>
+                                <td><img src="<?php echo $fetch['profile_pic']; ?>" width="50" height="50" /></td>
+                                <td><?php echo $fetch['created_at']; ?></td>
                                 <td>
                                     <center>
-                                        <a class="btn btn-warning"
-                                            href="Users_edit.php?admin_id=<?php echo $fetch['admin_id'] ?>">
+                                        <!-- Edit Button -->
+                                        <a class="btn btn-warning" href="Users_edit.php?id=<?php echo $fetch['id']; ?>">
                                             <i class="glyphicon glyphicon-edit"></i> Edit
                                         </a>
-                                        <a class="btn btn-danger" onclick="confirmationDelete(this); return false;"
-                                            href="Users_delete.php?admin_id=<?php echo $fetch['admin_id'] ?>">
+                                        <!-- Delete Button with JavaScript Confirmation -->
+                                        <a class="btn btn-danger"
+                                            onclick="return confirm('Are you sure you want to delete this user?');"
+                                            href="Users_delete.php?id=<?php echo $fetch['id']; ?>">
                                             <i class="glyphicon glyphicon-remove"></i> Delete
                                         </a>
                                     </center>
@@ -92,31 +100,23 @@ require_once 'connect.php';
                         ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
-    <br />
-    <br />
-    <!--footer-->
-</body>
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.dataTables.js"></script>
-<script src="../js/dataTables.bootstrap.js"></script>
-<script type="text/javascript">
-    function confirmationDelete(anchor) {
-        var conf = confirm("Are you sure you want to delete this record?");
-        if (conf) {
-            window.location = anchor.attr("href");
-        }
-    } 
-</script>
+    <br /><br />
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#table").DataTable();
-    });
-</script>
+    <!-- JS Scripts -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/jquery.dataTables.js"></script>
+    <script src="../js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        // DataTable initialization
+        $(document).ready(function () {
+            $("#table").DataTable();
+        });
+    </script>
+
+</body>
 
 </html>

@@ -3,9 +3,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 
 // Check connection
 if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
-} else {
-	echo "Connected successfully!";
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
 
@@ -13,129 +11,154 @@ if ($conn->connect_error) {
 <html lang="en">
 
 <head>
-    <title>Dream Place Hotel</title>
+    <title>Gallery Admin Panel</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <?php require('Include/links.php'); ?>
 
     <style>
-      /* Gallery container with spacing */
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create columns of flexible sizes */
-    gap: 20px; /* Space between images */
-    justify-items: center; /* Center images */
-}
+        /* Layout for the page: Left for the upload form, Right for the gallery */
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
 
-/* Gallery item styling */
-.gallery-item {
-    position: relative; /* For any additional positioning or effects */
-    overflow: hidden; /* Hide overflow content to maintain the aspect ratio */
-    border-radius: 8px; /* Rounded corners for the container */
-}
+        .form-container {
+            width: 30%;
+            /* Set left side to 30% */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-/* Image styling */
-.gallery-item img {
-    width: 100%; /* Make sure the image width fills the container */
-    height: 200px; /* Fix the height of all images */
-    object-fit: cover; /* Ensure the image covers the area without distorting */
-    border-radius: 8px; /* Rounded corners for the image */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for a cleaner look */
-}
+        .form-container input[type="file"] {
+            margin-bottom: 10px;
+        }
 
-/* Header and other text styling */
-h3 {
-    text-align: center;
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 30px;
-}
+        .gallery-container {
+            width: 70%;
+            /* Set right side to 70% */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
 
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-container h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Dream Place Hotel</a>
-        <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active fs-5" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link fs-5" href="rooms.php">Rooms</a></li>
-                <li class="nav-item"><a class="nav-link fs-5" href="dineandlounge.php">Dine and Lounge</a></li>
-                <li class="nav-item"><a class="nav-link fs-5" href="gallery.php">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link fs-5" href="Facilities.php">Facilities</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        More details...
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="ContactUs.php">Contact Us</a></li>
-                        <li><a class="dropdown-item" href="About.php">About us</a></li>
-                        <li><a class="dropdown-item" href="rulesandregulation.php">Rules and Regulation</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <!-- Login/Logout button -->
-            <div class="d-flex">
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <span class="navbar-text me-3">Welcome, <?= htmlspecialchars($_SESSION['user_name']); ?>!</span>
-                    <a href="User_logout.php" class="btn btn-danger shadow-none">Logout</a>
-                <?php else: ?>
-                    <a href="User_type.php" class="btn btn-primary shadow-none me-2">Login</a>
-                    <a href="User_Registration.php" class="btn btn-primary shadow-none">Sign up</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</nav>
-<!-- End of Navbar -->
- 
-
-    <div class="container" style="margin-left: 0;">
+    <nav style = "background-color:rgba(0, 0, 0, 0.1);" class = "navbar navbar-default">
+		<div  class = "container-fluid">
+			<div class = "navbar-header">
+				<a class = "navbar-brand" >Dream Place Hotel</a>
+			</div>
+			<ul class = "nav navbar-nav pull-right ">
+				<li class = "dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class = "glyphicon glyphicon-user"></i> <?php echo $name;?></a>
+					<ul class="dropdown-menu">
+						<li><a href="logout.php"><i class = "glyphicon glyphicon-off"></i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class = "container-fluid">	
+		<ul class = "nav nav-pills">
+			<li><a href="home.php">Home</a></li>
+			<li class="active"><a href="account.php">Accounts</a></li>
+			<li><a href="booking.php">Booking</a></li>
+			<li><a href="room.php">Room</a></li>
+			<li><a href="Users.php">Users</a></li>
+			<li><a href="dine.php">Dine and Lounge</a></li>
+			<li><a href="gallery.php">Gallery</a></li>
+			<li><a href="contact.php">Contact us</a></li>
+			<li><a href="about.php">About us</a></li>
+					
+		</ul>	
+	</div>
+	<br />
+    <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <strong>
-                    <h3>Gallery</h3>
-                </strong>
-                <br />
-                <!-- Gallery container using grid layout -->
-                <div class="gallery-container">
-                    <?php
-                    // Fetch images from the database
-                    $sql = "SELECT * FROM gallery_images";
-                    $result = mysqli_query($conn, $sql);
-                    
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            // Display each image in the gallery
-                            echo '<div class="gallery-item">';
-                            echo '<img src="' . $row['image_path'] . '" alt="' . $row['alt_text'] . '" />';
-                            echo '</div>';
+                <h3>Gallery Management</h3>
+                <div class="content-wrapper">
+                    <!-- Left side: Image upload form -->
+                    <div class="form-container">
+                        <h3>Upload New Image</h3>
+                        <form action="gallery_action.php?action=upload" method="POST" enctype="multipart/form-data">
+                            <label for="image">Choose Image:</label>
+                            <input type="file" name="image" id="image" required>
+                            <br>
+                            <label for="alt_text">Alt Text:</label>
+                            <input type="text" name="alt_text" id="alt_text" required>
+                            <br><br>
+                            <button type="submit" class="btn">Upload Image</button>
+                        </form>
+                    </div>
+
+                    <!-- Right side: Display gallery images -->
+                    <div class="gallery-container">
+                        <?php
+                        $sql = "SELECT * FROM gallery_images";
+                        $result = mysqli_query($conn, $sql);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<div class="gallery-item">';
+                                echo '<img src="' . $row['image_path'] . '" alt="' . $row['alt_text'] . '" />';
+                                echo '<br><a href="gallery_edit.php?id=' . $row['id'] . '">Edit</a>';
+                                echo ' | <a href="gallery_action.php?action=delete&id=' . $row['id'] . '" onclick="return confirm(\'Are you sure you want to delete?\')">Delete</a>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo "No images found!";
                         }
-                    } else {
-                        echo "No images found!";
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Footer start -->
-    <?php require_once('Include/Footer.php'); ?>
-    <!-- Footer end -->
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
 </body>
 
 </html>
