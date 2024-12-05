@@ -9,7 +9,51 @@
 </head>
 
 <body bg-light>
-	<?php require_once('Include/Header.php'); ?>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Dream Place Hotel</a>
+        <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active fs-5" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="rooms.php">Rooms</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="dineandlounge.php">Dine and Lounge</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="gallery.php">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link fs-5" href="Facilities.php">Facilities</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        More details...
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="ContactUs.php">Contact Us</a></li>
+                        <li><a class="dropdown-item" href="About.php">About us</a></li>
+                        <li><a class="dropdown-item" href="rulesandregulation.php">Rules and Regulation</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Login/Logout button -->
+            <div class="d-flex">
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <span class="navbar-text me-3">Welcome, <?= htmlspecialchars($_SESSION['user_name']); ?>!</span>
+                    <a href="User_logout.php" class="btn btn-danger shadow-none">Logout</a>
+                <?php else: ?>
+                    <a href="User_type.php" class="btn btn-primary shadow-none me-2">Login</a>
+                    <a href="User_Registration.php" class="btn btn-primary shadow-none">Sign up</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- End of Navbar -->
+ 
+
 
 	<div style="margin-left:0;" class="container">
 		<div class="panel panel-default">
@@ -19,46 +63,38 @@
 				</strong>
 				<br />
 				<br />
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/1.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/2.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/3.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/4.jpg" width="250" height="250" />
-				</div>
+
+				<?php
+				// Database connection
+				$conn = new mysqli('localhost', 'root', '', 'hotel_db');
+
+				// Check connection
+				if ($conn->connect_error) {
+					die("Connection failed: " . $conn->connect_error);
+				}
+
+				// Fetch images from the dine_lounge table
+				$sql = "SELECT image_path FROM dine_lounge";
+				$result = $conn->query($sql);
+
+				// Check if there are results
+				if ($result->num_rows > 0) {
+					// Output each row
+					while ($row = $result->fetch_assoc()) {
+						echo '<div style="float:left; width:250px; height:250px; margin-left:20px;">
+                                <img src="' . $row['image_path'] . '" width="250" height="250" />
+                              </div>';
+					}
+				} else {
+					echo "No images found.";
+				}
+
+				// Close connection
+				$conn->close();
+				?>
+
 				<br style="clear:both;" />
 				<br />
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/5.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/6.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/7.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/8.jpg" width="250" height="250" />
-				</div>
-				<br style="clear:both;" />
-				<br />
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/9.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/10.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/11.jpg" width="250" height="250" />
-				</div>
-				<div style="float:left; width:250px; height:250px; margin-left:20px;">
-					<img src="Images/images/dine/12.jpg" width="250" height="250" />
-				</div>
 			</div>
 		</div>
 	</div>
